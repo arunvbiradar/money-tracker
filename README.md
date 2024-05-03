@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Money Tracker
 
-## Getting Started
+## Commands
 
-First, run the development server:
+- npx create-next-app@latest .
+- npm i @clerk/nextjs
+- npx shadcn-ui@latest init
+- npx shadcn-ui@latest add
+- npm i next-themes
+
+## Steps
+
+### 1. logged in to clerk website
+
+### 2. .env.local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=publish_key
+CLERK_SECRET_KEY=secret_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. clerk code
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```typescript
+import { ClerkProvider } from "@clerk/nextjs";
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
+  );
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. ./middleware.ts
 
-## Learn More
+```typescript
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-To learn more about Next.js, take a look at the following resources:
+export default clerkMiddleware();
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+export const config = {
+  matcher: ["/((?!.+.[w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 5. ./app/(auth)/layout.tsx
 
-## Deploy on Vercel
+### 6. ./app/(auth)/sign-up/[[...sign-up]]/page.tsx
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```typescript
+import { SignUp } from "@clerk/nextjs";
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+export default function Page() {
+  return <SignUp path="/sign-up" />;
+}
+```
+
+### 7. ./app/(auth)/sign-in/[[...sign-in]]/page.tsx
+
+```typescript
+import { SignIn } from "@clerk/nextjs";
+
+export default function Page() {
+  return <SignIn path="/sign-in" />;
+}
+```
+
+### 8. add public sign-in, sign-up
+
+```bash
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/wizard
+```
+
+### 9. shadcn install
+
+### 10. npm i next-themes
