@@ -7,6 +7,19 @@
 - npx shadcn-ui@latest init
 - npx shadcn-ui@latest add
 - npm i next-themes
+- npm i prisma --save-dev
+- npm i @prisma/client
+- npx prisma init
+- npx prisma migrate dev - init Schema
+- npx prisma studio
+- npm i @tanstack/react-query
+- npm i @tanstack/react-query-devtools --save-dev
+- npm i @emoji-mart/react
+- npm i date-fns
+- npm i @radix-ui/react-icons
+- npm i recharts
+- npm i @tanstack/react-table
+- npm i export-to-csv
 
 ## Steps
 
@@ -84,3 +97,27 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/wizard
 ### 9. shadcn install
 
 ### 10. npm i next-themes
+
+### 11. insatall npm i prisma --save-dev & npm i @prisma/client
+
+### 12. initiate npx prisma init
+
+### 13. migrage prisma dev and also initialize Schema
+
+### 14. npx prisma studio
+
+### 15. Wizard page - combobox
+
+### 16. Install tanstack query
+
+## 17 deploy to vercel
+
+- package.json update scripts - "postinstall": "prisma generate"
+- update schema.prisma file
+  ```javascript
+  datasource db {
+    provider: "postgresql",
+    url: env("POSTGRES_PRISMA_URL"),
+    directUrl: env("POSTGRES_URL_NON_POOLING")
+  }
+  ```
