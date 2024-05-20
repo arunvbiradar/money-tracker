@@ -230,10 +230,10 @@ function CreateTransactionDialog({ trigger, type }: Props) {
               Cancel
             </Button>
           </DialogClose>
-          {/* <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+          <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
             {!isPending && "Create"}
             {isPending && <Loader2 className="animate-spin" />}
-          </Button> */}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
